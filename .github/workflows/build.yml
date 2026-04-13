@@ -27,7 +27,7 @@ jobs:
 
     # 4. Build Docker image
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/petclinic-app .
+      run: docker build -t project:v1 .
 
 
 
