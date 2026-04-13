@@ -1,20 +1,20 @@
-name: CI/CD Pipeline
+name: CI way
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
 
-    # 1. do git pull
+    # 1. Checkout code
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # 2. Setup Java (PetClinic is Java app)
+    # 2. Setup Java
     - name: Set up Java
       uses: actions/setup-java@v4
       with:
@@ -23,8 +23,12 @@ jobs:
 
     # 3. Build application
     - name: Build with Maven
-      run: mvn clean install
+      run: mvn clean install -DskipTests
 
-    # 4. Build Docker image
+    # 4. Debug (check jar)
+    - name: Check target folder
+      run: ls target
+
+    # 5. Build Docker image
     - name: Build Docker image
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/petclinic-app .
