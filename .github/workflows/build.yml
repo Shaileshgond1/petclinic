@@ -25,16 +25,27 @@ jobs:
     - name: Build with Maven
       run: mvn clean install -DskipTests -Dcheckstyle.skip=true
 
-    # 4. Build Docker image
+    # 5. copying artifact
     - name: uploading jars
       uses: actions/upload-artifact@v4   
       with:
         name: app-jar
         path: target/*.jar
 
-    # 4. Build Docker image
+    # 6. DockerHub login
+    - name: Login into DockerHub
+      uses: docker/login-action@v4   
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+    # 7. Build Docker image
     - name: Build Docker image
-      run: docker build -t project:v1 .
+      run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/project:v1 .
+
+
+    - name: docker push
+      run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/project:v1
 
 
 
