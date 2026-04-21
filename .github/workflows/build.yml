@@ -41,11 +41,11 @@ jobs:
 
     # 7. Build Docker image
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/project:v1 .
+      run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/petclinic:v1 .
 
 
     - name: docker push
-      run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/project:v1
+      run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/petclinic:v1
 
 
 
