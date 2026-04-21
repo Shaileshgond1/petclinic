@@ -26,13 +26,6 @@ jobs:
       run: mvn clean install -DskipTests -Dcheckstyle.skip=true
 
     # 4. Build Docker image
-    - name: uploading jars
-      uses: actions/upload-artifact@v4   
-      with:
-        name: app-jar
-        path: target/*.jar
-
-    # 4. Build Docker image
     - name: Build Docker image
       run: docker build -t project:v1 .
 
